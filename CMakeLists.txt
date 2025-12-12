@@ -10,6 +10,21 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(tf2_ros REQUIRED)
 
+add_executable(tf_broadcaster src/tf2_broadcaster.cpp)
+add_executable(tf_listener src/tf2_listener.cpp)
+
+# Bağlantı kütüphanelerini ekleme
+ament_target_dependencies(tf_broadcaster rclcpp tf2_ros)
+ament_target_dependencies(tf_listener rclcpp tf2_ros)
+
+# Executable'ı kurma
+install(TARGETS
+  tf_broadcaster
+  tf_listener
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
